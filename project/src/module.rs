@@ -61,10 +61,10 @@ pub fn compute_distances(graph: &UnGraph<String, ()>, start: NodeIndex) -> Vec<u
 
     let mut distances = Vec::new();
     while let Some((node, dist)) = queue.pop_front() {
-        for neighbor in graph.neighbors(node) {
-            if !visited.is_visited(&neighbor) {
-                visited.visit(neighbor);
-                queue.push_back((neighbor, dist + 1));
+        for w in graph.neighbors(node) {
+            if !visited.is_visited(&w) {
+                visited.visit(w);
+                queue.push_back((w, dist + 1));
                 distances.push(dist + 1);
             }
         }
@@ -72,6 +72,7 @@ pub fn compute_distances(graph: &UnGraph<String, ()>, start: NodeIndex) -> Vec<u
     distances
 }
 
+// computes the average of all distances
 pub fn compute_average(graph: &UnGraph<String, ()>) -> f64 {
     let mut total_distance = 0;
     let mut total_paths = 0;
@@ -89,7 +90,7 @@ pub fn compute_average(graph: &UnGraph<String, ()>) -> f64 {
     total_distance as f64 / total_paths as f64
 }
 
-
+// computes the maximum of all distances
 pub fn compute_maximum(graph: &UnGraph<String, ()>) -> usize {
     let mut max_distance = 0;
 
@@ -105,6 +106,7 @@ pub fn compute_maximum(graph: &UnGraph<String, ()>) -> usize {
     max_distance
 }
 
+// computes median of all distances
 pub fn compute_median(graph: &UnGraph<String, ()>) -> Result<f64, Box<dyn Error>> {
     let mut all_distances = Vec::new();
 
@@ -127,6 +129,7 @@ pub fn compute_median(graph: &UnGraph<String, ()>) -> Result<f64, Box<dyn Error>
     }
 }
 
+// computes mode of all distances
 pub fn compute_mode(graph: &UnGraph<String, ()>) -> Result<usize, Box<dyn Error>> {
     let mut times = HashMap::new();
     for start in graph.node_indices() {

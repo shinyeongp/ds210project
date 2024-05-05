@@ -13,3 +13,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     Ok(())
 }
+
+#[test]
+fn test() {
+let graph = file_graph("actors.csv");
+let graph_distance = GraphDistances::new(graph.expect("REASON"));
+let mode = graph_distance.unwrap().mode_distance;
+assert_eq!(mode,6);
+}
